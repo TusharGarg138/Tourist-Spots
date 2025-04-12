@@ -1,5 +1,7 @@
 # 🌍 Tourist Spot Recommendation System
 
+![Project Logo](assets/logo.png)
+
 A beginner-friendly Java project that recommends popular tourist destinations based on the user's city input. This system connects to an SQL database to retrieve and display relevant tourist spots through a user-friendly interface.
 
 ---
