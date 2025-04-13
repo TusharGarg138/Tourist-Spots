@@ -20,7 +20,23 @@ public class DatabaseConnection {
             WHERE c.city_name LIKE ? OR s.state_name LIKE ?
         """;
 
-        
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+            
+            stmt.setString(1, "%" + location + "%");
+            stmt.setString(2, "%" + location + "%");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                spots.add(new TouristSpot(
+                    rs.getString("spot_name"),
+                    rs.getString("city_name"),
+                    rs.getString("state_name"),
+                    rs.getString("description")
+                ));
+            }
+        }
         return spots;
     }
 }
