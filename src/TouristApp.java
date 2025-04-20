@@ -28,10 +28,8 @@ public class TouristApp {
                 System.out.println("⚠️ Please enter a valid city name.");
                 continue;
             }
-
             showTouristSpotsForCity(city);
         }
-
         scanner.close();
     }
 
