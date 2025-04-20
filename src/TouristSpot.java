@@ -3,36 +3,34 @@ package src;
 public class TouristSpot {
     private String name;
     private String description;
+    private String cityName;
+    private String stateName;
 
-    // Constructor
-    public TouristSpot(String name, String description) {
+    public TouristSpot(String name, String description, String cityName, String stateName) {
         this.name = name;
         this.description = description;
+        this.cityName = cityName;
+        this.stateName = stateName;
     }
 
-    // Getter for name
     public String getName() {
         return name;
     }
 
-    // Setter for name
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getter for description
     public String getDescription() {
         return description;
     }
 
-    // Setter for description
-    public void setDescription(String description) {
-        this.description = description;
+    public String getCityName() {
+        return cityName;
     }
 
-    // Override toString() for easy printing
+    public String getStateName() {
+        return stateName;
+    }
+
     @Override
     public String toString() {
-        return name + " - " + description;
+        return name + " (" + cityName + ", " + stateName + ") - " + description;
     }
 }
