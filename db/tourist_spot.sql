@@ -33,3 +33,17 @@ INSERT INTO states (state_name) VALUES
 ('Kerala'),
 ('Gujarat'),
 ('Himachal Pradesh');
+
+INSERT INTO cities (city_name, state_id) VALUES
+('Agra', 1),
+('Delhi', 2),
+('Mumbai', 3),
+('Jaipur', 4),
+('Madurai', 5),
+('Bengaluru', 6),
+('Mysuru', 6),
+('Kolkata', 7),
+('Kochi', 8),
+('Ahmedabad', 9),
+('Manali', 10),
+('Shimla', 10);
