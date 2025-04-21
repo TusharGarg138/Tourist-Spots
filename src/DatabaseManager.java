@@ -5,21 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String URL = "jdbc:mysql://localhost:3306/tourism_planner";
+    private static final String URL = "jdbc:mysql://localhost:3306/tourism";
     private static final String USER = "root";
-    private static final String PASSWORD = "root"; // Update this
+    private static final String PASSWORD = "shriyans09";
 
-    static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySQL JDBC Driver not found.");
-            e.printStackTrace();
-        }
-    }
-
-    public List<TouristSpot> getSpotsByCity(String cityName) {
+    public List<TouristSpot> getSpotsByCity(String cityName) throws DatabaseConnectionException {
         List<TouristSpot> spots = new ArrayList<>();
+
         String query = """
             SELECT ts.name AS spot_name, ts.description, c.city_name AS city_name, s.state_name AS state_name
             FROM tourist_spots ts
@@ -29,8 +21,8 @@ public class DatabaseManager {
         """;
 
         try (
-            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            PreparedStatement stmt = conn.prepareStatement(query)
+                Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(query)
         ) {
             stmt.setString(1, cityName);
             ResultSet rs = stmt.executeQuery();
@@ -44,9 +36,10 @@ public class DatabaseManager {
                 spots.add(new TouristSpot(spotName, description, city, state));
             }
 
+        } catch (SQLNonTransientConnectionException e) {
+            throw new DatabaseConnectionException("MySQL service might not be running.");
         } catch (SQLException e) {
-            System.out.println("Database error: " + e.getMessage());
-            e.printStackTrace();
+            throw new DatabaseConnectionException(e.getMessage());
         }
 
         return spots;
