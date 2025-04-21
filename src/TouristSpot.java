@@ -28,9 +28,4 @@ public class TouristSpot {
     public String getStateName() {
         return stateName;
     }
-
-    @Override
-    public String toString() {
-        return name + " (" + cityName + ", " + stateName + ") - " + description;
-    }
 }
