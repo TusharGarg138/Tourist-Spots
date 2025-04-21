@@ -47,3 +47,17 @@ INSERT INTO cities (city_name, state_id) VALUES
 ('Ahmedabad', 9),
 ('Manali', 10),
 ('Shimla', 10);
+
+INSERT INTO tourist_spots (name, city_id, description) VALUES
+('Taj Mahal', 1, 'Iconic white marble mausoleum'),
+('Red Fort', 2, 'Historic fort and UNESCO World Heritage Site'),
+('Gateway of India', 3, 'Famous arch monument overlooking the Arabian Sea'),
+('Hawa Mahal', 4, 'Palace with a unique honeycomb structure'),
+('Meenakshi Temple', 5, 'Ancient Hindu temple with intricate carvings'),
+('Lalbagh Botanical Garden', 6, 'Historic garden with a glasshouse, lake and rare plants'),
+('Mysore Palace', 7, 'Grand royal palace with Indo-Saracenic architecture'),
+('Victoria Memorial', 8, 'Marble building dedicated to Queen Victoria, now a museum'),
+('Fort Kochi', 9, 'Historic coastal area with colonial architecture and Chinese fishing nets'),
+('Sabarmati Ashram', 10, 'Historic home of Mahatma Gandhi'),
+('Solang Valley', 11, 'Popular adventure and skiing destination'),
+('The Ridge', 12, 'Large open space in the heart of Shimla with scenic views');
