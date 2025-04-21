@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String URL = "jdbc:mysql://localhost:3306/tourism";
+    private static final String URL = "jdbc:mysql://localhost:3306/tourism_planner";
     private static final String USER = "root";
-    private static final String PASSWORD = "yourpassword"; // Update this
+    private static final String PASSWORD = "root"; // Update this
 
     static {
         try {
@@ -21,11 +21,11 @@ public class DatabaseManager {
     public List<TouristSpot> getSpotsByCity(String cityName) {
         List<TouristSpot> spots = new ArrayList<>();
         String query = """
-            SELECT ts.name AS spot_name, ts.description, c.name AS city_name, s.name AS state_name
+            SELECT ts.name AS spot_name, ts.description, c.city_name AS city_name, s.state_name AS state_name
             FROM tourist_spots ts
-            JOIN cities c ON ts.city_id = c.id
-            JOIN states s ON c.state_id = s.id
-            WHERE c.name = ?
+            JOIN cities c ON ts.city_id = c.city_id
+            JOIN states s ON c.state_id = s.state_id
+            WHERE c.city_name = ?
         """;
 
         try (
