@@ -21,3 +21,15 @@ city_id INT,
 description TEXT,
 FOREIGN KEY (city_id) REFERENCES cities(city_id)
 );
+
+INSERT INTO states (state_name) VALUES
+('Uttar Pradesh'),
+('Delhi'),
+('Maharashtra'),
+('Rajasthan'),
+('Tamil Nadu'),
+('Karnataka'),
+('West Bengal'),
+('Kerala'),
+('Gujarat'),
+('Himachal Pradesh');
