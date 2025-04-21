@@ -1,40 +1,54 @@
+package src;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/tourism_planner";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
+    private static final String URL = "jdbc:mysql://localhost:3306/tourism";
+    private static final String USER = "root";
+    private static final String PASSWORD = "yourpassword"; // Update this
 
-    public List<TouristSpot> getTouristSpots(String location) throws SQLException {
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("MySQL JDBC Driver not found.");
+            e.printStackTrace();
+        }
+    }
+
+    public List<TouristSpot> getSpotsByCity(String cityName) {
         List<TouristSpot> spots = new ArrayList<>();
-
         String query = """
-                SELECT ts.name, c.city_name AS city, s.state_name AS state, ts.description
-                FROM tourist_spots ts
-                JOIN cities c ON ts.city_id = c.city_id
-                JOIN states s ON c.state_id = s.state_id
-                WHERE c.city_name LIKE ? OR s.state_name LIKE ?
-                """;
+            SELECT ts.name AS spot_name, ts.description, c.name AS city_name, s.name AS state_name
+            FROM tourist_spots ts
+            JOIN cities c ON ts.city_id = c.id
+            JOIN states s ON c.state_id = s.id
+            WHERE c.name = ?
+        """;
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setString(1, "%" + location + "%");
-            stmt.setString(2, "%" + location + "%");
-
+        try (
+            Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+            PreparedStatement stmt = conn.prepareStatement(query)
+        ) {
+            stmt.setString(1, cityName);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                spots.add(new TouristSpot(
-                        rs.getString("name"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("description")
-                ));
+                String spotName = rs.getString("spot_name");
+                String description = rs.getString("description");
+                String city = rs.getString("city_name");
+                String state = rs.getString("state_name");
+
+                spots.add(new TouristSpot(spotName, description, city, state));
             }
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+            e.printStackTrace();
         }
+
         return spots;
     }
 }
