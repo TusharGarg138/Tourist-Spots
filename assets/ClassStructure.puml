@@ -1,0 +1,59 @@
+@startuml
+title Tourist Spot Recommender System - Class Diagram
+
+class Main {
+    +main(args: String[]): void
+}
+
+class TouristApp {
+    -service: TouristService
+    -scanner: Scanner
+    +run(): void
+    -showTouristSpotsForCity(city: String): void
+}
+
+class TouristService {
+    -dbManager: DatabaseManager
+    +getSpotsForCity(city: String): List<TouristSpot>
+}
+
+class DatabaseManager {
+    -URL: String
+    -USER: String
+    -PASSWORD: String
+    +getSpotsByCity(cityName: String): List<TouristSpot>
+}
+
+class TouristSpot {
+    -name: String
+    -description: String
+    -cityName: String
+    -stateName: String
+    +getName(): String
+    +getDescription(): String
+    +getCityName(): String
+    +getStateName(): String
+    +toString(): String
+}
+
+exception EmptyCityException {
+}
+
+exception DatabaseConnectionException {
+}
+
+exception CityNotFoundException {
+}
+
+Main --> TouristApp
+TouristApp --> TouristService
+TouristService --> DatabaseManager
+DatabaseManager --> TouristSpot
+TouristApp --> TouristSpot
+
+TouristService --> EmptyCityException
+TouristService --> CityNotFoundException
+DatabaseManager --> DatabaseConnectionException
+
+
+@enduml
