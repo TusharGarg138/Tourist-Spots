@@ -9,7 +9,19 @@ public class TouristService {
         dbManager = new DatabaseManager();
     }
 
-    public List<TouristSpot> getSpotsForCity(String city) {
-        return dbManager.getSpotsByCity(city);
+    public List<TouristSpot> getSpotsForCity(String city)
+            throws CityNotFoundException, DatabaseConnectionException, EmptyInputException {
+
+        if (city == null || city.trim().isEmpty()) {
+            throw new EmptyInputException();
+        }
+
+        List<TouristSpot> spots = dbManager.getSpotsByCity(city.trim());
+
+        if (spots.isEmpty()) {
+            throw new CityNotFoundException(city);
+        }
+
+        return spots;
     }
 }

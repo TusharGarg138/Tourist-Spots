@@ -49,7 +49,7 @@ INSERT INTO cities (city_name, state_id) VALUES
 ('Shimla', 10);
 
 INSERT INTO tourist_spots (name, city_id, description) VALUES
-('Taj Mahal', 1, 'Iconic white marble mausoleum'),
+('Taj Mahal', 1, 'Iconic white marble museum'),
 ('Red Fort', 2, 'Historic fort and UNESCO World Heritage Site'),
 ('Gateway of India', 3, 'Famous arch monument overlooking the Arabian Sea'),
 ('Hawa Mahal', 4, 'Palace with a unique honeycomb structure'),
